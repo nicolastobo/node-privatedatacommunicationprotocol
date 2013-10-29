@@ -4,6 +4,7 @@
   "description": "Implementation in NodeJs of privatedatacommunicationprotocol from Google",
   "version": "0.1.2",
   "repository": {
+    "type": "git",
     "url": "https://github.com/nicolastobo/node-privatedatacommunicationprotocol"
   },
   "main": "./lib/pdcp",
