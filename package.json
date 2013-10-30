@@ -1,7 +1,7 @@
 {
   "author": "nicolas tobo",
-  "name": "node-privatedatacommunicationprotocol",
-  "description": "Implementation in NodeJs of privatedatacommunicationprotocol from Google",
+  "name": "privatedatacommunicationprotocol",
+  "description": "Implementation in pure NodeJs of privatedatacommunicationprotocol from Google",
   "version": "0.1.3",
   "repository": {
     "type": "git",

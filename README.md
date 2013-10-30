@@ -6,6 +6,16 @@ https://code.google.com/p/privatedatacommunicationprotocol/
 
 needed for https://developers.google.com/ad-exchange/rtb/response-guide/decrypt-price
 
+Installation
+============
+
+		npm install privatedatacommunicationprotocol
+		
+Example
+=======
+
+		var PDCP = require("privatedatacommunicationprotocol");
+
 		var price = "15000000"; // must 8 bytes!
 
 		// PDCP.crypt = function(iv, e_key, i_key, price)
