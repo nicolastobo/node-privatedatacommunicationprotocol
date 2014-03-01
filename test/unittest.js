@@ -45,15 +45,23 @@ describe('PDCP', function() {
 	});
 
 
+	it('crypt same price twice with same iv provide diferent result', function(done) {
+		var price   = 10000000;
+		var iv = new Buffer([0x00, 0x8c, 0x70, 0xcf, 0xbc, 0xb0, 0xeb, 0x6c, 0xab, 0x7e, 0x82, 0xc6, 0xb7, 0x5d, 0xa5, 0x21]);
+		var enc_price1 = PDCP.crypt(e_key, i_key, price, iv);
+		var enc_price2 = PDCP.crypt(e_key, i_key, price, iv);
+		assert.notEqual(enc_price1, enc_price2);
+		done();
+	});
+
+
 	it('crypt/decrypt 1000 random number', function(done) {
 		var price;
 		for(var i=0; i< 1000; i++){
 			price = Math.floor(Math.random()*1000000000);
   			var enc_price = PDCP.crypt(e_key, i_key, price);
 			var dec_price = PDCP.decrypt(e_key, i_key, enc_price);
-
 			assert.equal(price, dec_price);
-
 		}
 		done();
 	});
