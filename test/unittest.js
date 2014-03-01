@@ -1,4 +1,4 @@
-/*jslint node: true */
+/*jslint node: true*/
 "use strict";
 
 var assert = require("assert");
@@ -11,59 +11,60 @@ var i_key = new Buffer([0xbf, 0x77, 0xec, 0x55, 0xc3, 0x01, 0x30, 0xc1, 0xd8, 0x
 
 describe('PDCP', function() {
 
-	it('shoud decrypt the google code example', function(done) {
-		var enc_price = 'SjpvRwAB4kB7jEpgW5IA8p73ew9ic6VZpFsPnA';
-		var dec_price = PDCP.decrypt(e_key, i_key, enc_price);
-		assert.equal(709959680, dec_price);
-		done();
-	});
+  it('shoud decrypt the google code example', function(done) {
+    var enc_price = 'SjpvRwAB4kB7jEpgW5IA8p73ew9ic6VZpFsPnA';
+    var dec_price = PDCP.decrypt(e_key, i_key, enc_price);
+    assert.equal(709959680, dec_price);
+    done();
+  });
 
-	it('shoud crypt the google code example with different result', function(done) {
-		var price = 709959680;
-		var enc_price = PDCP.crypt(e_key, i_key, price);
-		assert.notEqual('SjpvRwAB4kB7jEpgW5IA8p73ew9ic6VZpFsPnA', enc_price);
-		done();
-	});
-
-
-	it('shoud crypt/decrypt properly', function(done) {
-		var price = 709959680;
-		var enc_price = PDCP.crypt(e_key, i_key, price);
-		var dec_price = PDCP.decrypt(e_key, i_key, enc_price);
-
-		assert.equal(price, dec_price);
-
-		done();
-	});
-
-	it('crypt same price twice provide diferent result', function(done) {
-		var price   = 10000000;
-		var enc_price1 = PDCP.crypt(e_key, i_key, price);
-		var enc_price2 = PDCP.crypt(e_key, i_key, price);
-		assert.notEqual(enc_price1, enc_price2);
-		done();
-	});
+  it('shoud crypt the google code example with different result', function(done) {
+    var price = 709959680;
+    var enc_price = PDCP.crypt(e_key, i_key, price);
+    assert.notEqual('SjpvRwAB4kB7jEpgW5IA8p73ew9ic6VZpFsPnA', enc_price);
+    var dec_price = PDCP.decrypt(e_key, i_key, enc_price);
+    assert.equal(709959680, dec_price);
+    done();
+  });
 
 
-	it('crypt same price twice with same iv provide diferent result', function(done) {
-		var price   = 10000000;
-		var iv = new Buffer([0x00, 0x8c, 0x70, 0xcf, 0xbc, 0xb0, 0xeb, 0x6c, 0xab, 0x7e, 0x82, 0xc6, 0xb7, 0x5d, 0xa5, 0x21]);
-		var enc_price1 = PDCP.crypt(e_key, i_key, price, iv);
-		var enc_price2 = PDCP.crypt(e_key, i_key, price, iv);
-		assert.notEqual(enc_price1, enc_price2);
-		done();
-	});
+  it('shoud crypt/decrypt properly', function(done) {
+    var price = 709959680;
+    var enc_price = PDCP.crypt(e_key, i_key, price);
+    var dec_price = PDCP.decrypt(e_key, i_key, enc_price);
+
+    assert.equal(price, dec_price);
+
+    done();
+  });
+
+  it('crypt same price twice provide diferent result', function(done) {
+    var price   = 10000000;
+    var enc_price1 = PDCP.crypt(e_key, i_key, price);
+    var enc_price2 = PDCP.crypt(e_key, i_key, price);
+    assert.notEqual(enc_price1, enc_price2);
+    done();
+  });
+
+  it('crypt same price twice with same iv provide diferent result', function(done) {
+    var price   = 10000000;
+    var iv = new Buffer([0x00, 0x8c, 0x70, 0xcf, 0xbc, 0xb0, 0xeb, 0x6c, 0xab, 0x7e, 0x82, 0xc6, 0xb7, 0x5d, 0xa5, 0x21]);
+    var enc_price1 = PDCP.crypt(e_key, i_key, price, iv);
+    var enc_price2 = PDCP.crypt(e_key, i_key, price, iv);
+    assert.notEqual(enc_price1, enc_price2);
+    done();
+  });
 
 
-	it('crypt/decrypt 1000 random number', function(done) {
-		var price;
-		for(var i=0; i< 1000; i++){
-			price = Math.floor(Math.random()*1000000000);
-  			var enc_price = PDCP.crypt(e_key, i_key, price);
-			var dec_price = PDCP.decrypt(e_key, i_key, enc_price);
-			assert.equal(price, dec_price);
-		}
-		done();
-	});
+  it('crypt/decrypt 1000 random number', function(done) {
+    var price;
+    for(var i=0; i< 1000; i++){
+      price = Math.floor(Math.random()*1000000000);
+      var enc_price = PDCP.crypt(e_key, i_key, price);
+      var dec_price = PDCP.decrypt(e_key, i_key, enc_price);
+      assert.equal(price, dec_price);
+    }
+    done();
+  });
 
 });
