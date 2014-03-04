@@ -11,7 +11,6 @@ var e_key = new Buffer([
   0x72, 0xae, 0x62, 0xb2, 0xbf, 0x4b, 0x99, 0x0b,
   0xb8, 0x0a, 0x48, 0xd8, 0x14, 0x1e, 0xec, 0x07
 ]);
-
 var i_key = new Buffer([
   0xbf, 0x77, 0xec, 0x55, 0xc3, 0x01, 0x30, 0xc1,
   0xd8, 0xcd, 0x18, 0x62, 0xed, 0x2a, 0x4c, 0xd2,
@@ -19,6 +18,10 @@ var i_key = new Buffer([
   0x3d, 0x3b, 0xbd, 0x3a, 0xd5, 0x68, 0x77, 0x92
 ]);
 
+var g_iv = new Buffer([
+    0x3e, 0xeb, 0x75, 0xa5, 0x33, 0x6d, 0x39, 0xa5,
+    0x8d, 0xfa, 0x93, 0x4d, 0xd4, 0x05, 0x4a, 0x63,
+]);
 
 describe('PDCP', function() {
 
@@ -26,6 +29,21 @@ describe('PDCP', function() {
     var enc_price = 'SjpvRwAB4kB7jEpgW5IA8p73ew9ic6VZpFsPnA';
     var dec_price = PDCP.decrypt(e_key, i_key, enc_price);
     assert.equal(709959680, dec_price);
+    done();
+  });
+
+  it('shoud decrypt the google code example', function(done) {
+    var enc_price = 'SjpvRwAB4kB7jE4444IA8p73ew9ic6VZpFsPnA';
+    var dec_price = PDCP.decrypt(e_key, i_key, enc_price);
+    assert.notEqual(709959680, dec_price);
+    done();
+  });
+
+  it('shoud crypt the google code example', function(done) {
+
+    var enc_price = PDCP.crypt(e_key, i_key, 709959680, g_iv);
+
+    assert.equal(enc_price, 'SjpvRwAB4kB7jEpgW5IA8p73ew9ic6VZpFsPnA');
     done();
   });
 
